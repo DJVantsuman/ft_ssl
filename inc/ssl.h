@@ -10,7 +10,7 @@ typedef  struct s_container
     char                flag;
     char                *message;
     size_t              message_len;
-    struct container    *next;
+    struct s_container  *next;
 }               t_container;
 
 typedef enum    e_type
@@ -21,8 +21,9 @@ typedef enum    e_type
 }               t_type;
 
 t_type  type;
+char    *fileName;
 
-void	checkArguments(int ac, char **av, t_container *container);
+void	checkArguments(int ac, char **av, t_container **container);
 void    getCommand(char *command);
 
 #endif

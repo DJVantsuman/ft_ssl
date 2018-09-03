@@ -7,8 +7,9 @@ void printUsage()
 
 int main(int argc, char *argv[])
 {
-	t_container container;
+	t_container *container;
 
+    container == NULL;
 	if(argc == 1)
 		printUsage();
 	else if(argc == 2)
