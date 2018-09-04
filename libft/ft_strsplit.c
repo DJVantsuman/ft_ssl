@@ -68,11 +68,7 @@ static void	split(char const *s, char **a, char c)
 char		**ft_strsplit(char const *s, char c)
 {
 	char	**a;
-	int		i;
-	int		t;
 
-	i = 0;
-	t = 0;
 	if (s)
 	{
 		a = (char **)malloc(sizeof(char*) * nam(s, c) + 1);

@@ -16,7 +16,7 @@ void	addLst(t_container **alst, t_container *new)
     }
 }
 
-t_container		*newLst(void const *content)
+t_container		*newLst(char *content)
 {
     t_container	*list;
 
@@ -25,8 +25,6 @@ t_container		*newLst(void const *content)
         return (NULL);
     if (content)
         list->message = content;
-    else
-        list->message = NULL;
     list->next = NULL;
     return (list);
 }
@@ -68,11 +66,11 @@ int    getFlags(char **av, t_container **container, int i, int ac)
     return i;
 }
 
-void    print(t_container **container)
+void    print(t_container *container)
 {
-    if ((*container)->next) {
-        printf("Flag = %c; Message = %s\n", (*container)->flag, (*container)->message);
-        print((*container)->next);
+    if (container) {
+        printf("Flag = %c; Message = %s\n", container->flag, container->message);
+        print(container->next);
     }
 }
 
@@ -98,5 +96,5 @@ void	checkArguments(int ac, char **av, t_container **container)
             f = 1;
         }
     }
-    print(container);
+    print(*container);
 }

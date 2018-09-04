@@ -3,6 +3,7 @@
 
 # include <stdio.h>
 # include <stdlib.h>
+# include <fcntl.h>
 # include "../libft/libft.h"
 
 typedef  struct s_container
