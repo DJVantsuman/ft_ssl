@@ -41,13 +41,18 @@ void    getCommand(char *command)
 
 int    getFlags(char **av, t_container **container, int i, int ac)
 {
-    while (++av[i])
+    int j;
+
+    j = 0;
+
+    while (av[i][++j])
     {
+        char c = av[i][j];
         t_container *var;
         var= newLst(NULL);
-        if(*av[i] == 'p' || *av[i] == 'q' || *av[i] == 'r')
+        if(av[i][j] == 'p' || av[i][j] == 'q' || av[i][j] == 'r')
             var->flag = *av[i];
-        else if(*av[i] == 's')
+        else if(av[i][j] == 's')
         {
             var->flag = *av[i];
             if(av[i][1])
