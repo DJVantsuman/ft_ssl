@@ -1,18 +1,18 @@
 #include "../inc/ssl.h"
 
 
-void	addLst(t_container **alst, t_container *new)
+void	addLst(t_container **alst, t_container *newLst)
 {
     t_container	*list;
 
     if (*alst == NULL)
-        *alst = new;
+        *alst = newLst;
     else
     {
         list = *alst;
         while (list->next)
             list = list->next;
-        list->next = new;
+        list->next = newLst;
     }
 }
 
@@ -25,6 +25,8 @@ t_container		*newLst(char *content)
         return (NULL);
     if (content)
         list->message = content;
+    else
+        list->message = NULL;
     list->next = NULL;
     return (list);
 }
@@ -41,24 +43,19 @@ void    getCommand(char *command)
 
 int    getFlags(char **av, t_container **container, int i, int ac)
 {
-    int j;
-
-    j = 0;
-
-    while (av[i][++j])
+    while (*(++av[i]))
     {
-        char c = av[i][j];
         t_container *var;
-        var= newLst(NULL);
-        if(av[i][j] == 'p' || av[i][j] == 'q' || av[i][j] == 'r')
+        var = newLst(NULL);
+        if(*av[i] == 'p' || *av[i] == 'q' || *av[i] == 'r')
             var->flag = *av[i];
-        else if(av[i][j] == 's')
+        else if(*av[i] == 's')
         {
             var->flag = *av[i];
             if(av[i][1])
-                var->message = ++av[i];
+                var->message = ft_strdup(++av[i]);
             else if(i + 1 < ac)
-                var->message = av[++i];
+                var->message = ft_strdup(av[++i]);
             else
                 return (-2);
             addLst(container, var);
@@ -73,9 +70,12 @@ int    getFlags(char **av, t_container **container, int i, int ac)
 
 void    print(t_container *container)
 {
-    if (container) {
-        printf("Flag = %c; Message = %s\n", container->flag, container->message);
-        print(container->next);
+    while (container) {
+        if(container->message)
+            printf("Flag = %c; Message = %s\n", container->flag, container->message);
+        else
+            printf("Flag = %c; Message = %s\n", container->flag, "NULL");
+        container = container->next;
     }
 }
 
@@ -96,7 +96,7 @@ void	checkArguments(int ac, char **av, t_container **container)
             t_container *var;
             var = newLst(NULL);
             var->flag = 'f';
-            var->message = av[i];
+            var->message = ft_strdup(av[i]);
             addLst(container, var);
             f = 1;
         }

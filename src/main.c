@@ -64,7 +64,7 @@ int main(int argc, char *argv[])
 
 
 
-	char *s = readFromFile(argv[1]);
-	printf("%d  %s\n", type, s);
+//	char *s = readFromFile(argv[1]);
+//	printf("%d  %s\n", type, s);
 	return 0;
 }
