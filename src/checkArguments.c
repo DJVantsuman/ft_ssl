@@ -68,17 +68,6 @@ int    getFlags(char **av, t_container **container, int i, int ac)
     return i;
 }
 
-void    print(t_container *container)
-{
-    while (container) {
-        if(container->message)
-            printf("Flag = %c; Message = %s\n", container->flag, container->message);
-        else
-            printf("Flag = %c; Message = %s\n", container->flag, "NULL");
-        container = container->next;
-    }
-}
-
 void	checkArguments(int ac, char **av, t_container **container)
 {
     int i;
@@ -96,10 +85,9 @@ void	checkArguments(int ac, char **av, t_container **container)
             t_container *var;
             var = newLst(NULL);
             var->flag = 'f';
-            var->message = ft_strdup(av[i]);
+            var->fileName = ft_strdup(av[i]);
             addLst(container, var);
             f = 1;
         }
     }
-    print(*container);
 }

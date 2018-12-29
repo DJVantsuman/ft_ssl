@@ -10,6 +10,7 @@ typedef  struct s_container
 {
     char                flag;
     char                *message;
+    char                *fileName;
     size_t              message_len;
     struct s_container  *next;
 }               t_container;
@@ -26,5 +27,6 @@ char    *fileName;
 
 void	checkArguments(int ac, char **av, t_container **container);
 void    getCommand(char *command);
+
 
 #endif
