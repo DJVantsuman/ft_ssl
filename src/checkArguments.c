@@ -46,23 +46,20 @@ int    getFlags(char **av, t_container **container, int i, int ac)
     while (*(++av[i]))
     {
         t_container *var;
+
         var = newLst(NULL);
-        if(*av[i] == 'p' || *av[i] == 'q' || *av[i] == 'r')
-            var->flag = *av[i];
-        else if(*av[i] == 's')
+        var->flag = *av[i];
+        if(*av[i] == 's')
         {
-            var->flag = *av[i];
             if(av[i][1])
                 var->message = ft_strdup(++av[i]);
             else if(i + 1 < ac)
                 var->message = ft_strdup(av[++i]);
             else
-                return (-2);
+                var->isValid = 0;
             addLst(container, var);
-            return  i;
+            break ;
         }
-        else
-            return (-1);
         addLst(container, var);
     }
     return i;

@@ -12,21 +12,26 @@ typedef  struct s_container
     char                *message;
     char                *fileName;
     size_t              message_len;
+    int                 isValid;
     struct s_container  *next;
-}               t_container;
+}                       t_container;
 
 typedef enum    e_type
 {
-    UNDEFINED,
-    HASH_MD_5,
-    HASH_SHA256
+                UNDEFINED,
+                HASH_MD_5,
+                HASH_SHA256
 }               t_type;
 
 t_type  type;
 char    *fileName;
 
-void	checkArguments(int ac, char **av, t_container **container);
-void    getCommand(char *command);
+void            calculateMd5(t_container **container);
+void            step1(t_container *container);
+void            checkArguments(int ac, char **av, t_container **container);
+void            getCommand(char *command);
+void            addLst(t_container **alst, t_container *newLst);
+t_container		*newLst(char *content);
 
 
 #endif

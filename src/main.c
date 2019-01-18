@@ -10,7 +10,7 @@ int readFromFile(char *fileName, t_container **var)
 	char 	*str;
 	char 	*tmp;
 	char 	buffer[101];
-	size_t 	i;
+    int 	i;
 	int 	fd;
 
 	str = "";
@@ -34,21 +34,21 @@ int readFromFile(char *fileName, t_container **var)
 
 char *readFromConsole()
 {
-	char 	buffer[101];
-	char 	*str;
-	char 	*tmp;
-	size_t 	i;
+    char 	buffer[101];
+    char 	*str;
+    char 	*tmp;
+    int 	i;
 
-	str = "";
+    str = "";
 	printf("%s\n",  "reedFromConsole");
-	while ((i = read(0, &buffer, 100)) > 0)
-	{
-		tmp = str;
-		buffer[i] = '\0';
-		str = ft_strjoin(tmp, buffer);
-		ft_strdel(&tmp);
-	}
-	return (str);
+    while ((i = read(0, &buffer, 100)) > 0)
+    {
+        tmp = str;
+        buffer[i] = '\0';
+        str = ft_strjoin(tmp, buffer);
+        ft_strdel(&tmp);
+    }
+    return (str);
 }
 
 int getMessages(t_container **container)
@@ -61,11 +61,13 @@ int getMessages(t_container **container)
         if (var->flag == 'p')
             var->message = readFromConsole();
         else if (var->flag == 'f')
+        {
             if (readFromFile(var->fileName, &var) < 0)
             {
                 printf("ERROR: Can't open file %s .\n",  var->fileName);
                 return (-1);
             }
+        }
         var = var->next;
     }
     return (1);
@@ -76,11 +78,12 @@ void    print(t_container *container)
     t_container *var;
 
     var = container;
+    printf("Command = %d\n", type);
     while (var) {
         if(var->message)
-            printf("Flag = %c; Message = %s\n", var->flag, var->message);
+            printf("Flag = %c; Message = %s\n",  var->flag, var->message);
         else
-            printf("Flag = %c; Message = %s\n", var->flag, "NULL");
+            printf("Flag = %c; Message = %s\n",  var->flag, "NULL");
         var = var->next;
     }
 }
@@ -88,26 +91,25 @@ void    print(t_container *container)
 int main(int argc, char *argv[])
 {
 	t_container *container;
+    t_container *var;
 
 	container = NULL;
+    var = newLst(NULL);
 	if(argc == 1)
-		printUsage();
-	else if(argc == 2)
-	{
-		getCommand(argv[1]);
-        char *s = readFromConsole();
-		printf("%d  %s\n", type, s);
-	}
-	else if(argc > 2)
     {
-		checkArguments(argc, argv, &container);
-        getMessages(&container);
+		printUsage();
+        return 0;
     }
+    else if(argc == 2) // проверить команду на коректность
+	{
+        var->flag = 'p';
+        addLst(&container, var);
+	}
+    else if(argc > 2) // проверить команду на коректность
+		checkArguments(argc, argv, &container);
+    getCommand(argv[1]);
+//    getMessages(&container);
 
     print(container);
-
-
-//	char *s = readFromFile(argv[1]);
-//	printf("%d  %s\n", type, s);
 	return 0;
 }

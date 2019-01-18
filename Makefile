@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME =	ft_ssl
+NAME =	md5
 FLAGS = -Wall -Werror -Wextra
 SRC_PATH = ./src/
 SRC = src/main.c src/checkArguments.c
