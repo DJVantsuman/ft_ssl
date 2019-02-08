@@ -27,6 +27,8 @@ t_container		*newLst(char *content)
         list->message = content;
     else
         list->message = NULL;
+    list->fileName = 0;
+    list->message_len = 0;
     list->next = NULL;
     return (list);
 }
@@ -49,14 +51,16 @@ int    getFlags(char **av, t_container **container, int i, int ac)
 
         var = newLst(NULL);
         var->flag = *av[i];
-        if(*av[i] == 's')
+        if (*av[i] == 's')
         {
-            if(av[i][1])
+            if (av[i][1])
                 var->message = ft_strdup(++av[i]);
-            else if(i + 1 < ac)
+            else if (i + 1 < ac)
                 var->message = ft_strdup(av[++i]);
             else
                 var->isValid = 0;
+            if (var->message)
+                var->message_len = ft_strlen(var->message);
             addLst(container, var);
             break ;
         }
@@ -70,7 +74,6 @@ void	checkArguments(int ac, char **av, t_container **container)
     int i;
     int f;
 
-    getCommand(av[1]);
     i = 1;
     f = 0;
     while (++i < ac)

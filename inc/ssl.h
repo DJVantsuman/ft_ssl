@@ -4,6 +4,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <fcntl.h>
+# include <math.h>
 # include "../libft/libft.h"
 
 typedef  struct s_container
@@ -25,9 +26,9 @@ typedef enum    e_type
 
 t_type  type;
 char    *fileName;
+size_t  size;
 
 void            calculateMd5(t_container **container);
-void            step1(t_container *container);
 void            checkArguments(int ac, char **av, t_container **container);
 void            getCommand(char *command);
 void            addLst(t_container **alst, t_container *newLst);

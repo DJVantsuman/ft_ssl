@@ -68,6 +68,8 @@ int getMessages(t_container **container)
                 return (-1);
             }
         }
+        if (var->message)
+            var->message_len = ft_strlen(var->message);
         var = var->next;
     }
     return (1);
@@ -106,10 +108,11 @@ int main(int argc, char *argv[])
         addLst(&container, var);
 	}
     else if(argc > 2) // проверить команду на коректность
-		checkArguments(argc, argv, &container);
+        checkArguments(argc, argv, &container);
     getCommand(argv[1]);
-//    getMessages(&container);
-
+    getMessages(&container);
+    if (type == HASH_MD_5)
+        calculateMd5(&container);
     print(container);
 	return 0;
 }
