@@ -18,6 +18,7 @@ unsigned int    H(unsigned int X, unsigned int Y, unsigned int Z);
 unsigned int    I(unsigned int X, unsigned int Y, unsigned int Z);
 
 unsigned int    rotate_left(unsigned int value, int shift);
+void            print_hex(t_variables *var);
 
 unsigned char   *step1_md5(t_container *container);
 unsigned char   *step2_md5(unsigned char *msg, t_container *var);
