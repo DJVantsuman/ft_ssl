@@ -3,6 +3,7 @@
 void printUsage()
 {
 	printf("%s\n", "This is usage man.");
+    exit(0);
 }
 
 int readFromFile(char *fileName, t_container **var)
@@ -80,7 +81,7 @@ void    print(t_container *container)
     t_container *var;
 
     var = container;
-    printf("Command = %d\n", type);
+//    printf("Command = %d\n", type);
     while (var) {
         if(var->message)
             printf("Flag = %c; Message = %s\n",  var->flag, var->message);
@@ -98,10 +99,7 @@ int main(int argc, char *argv[])
 	container = NULL;
     var = newLst(NULL);
 	if(argc == 1)
-    {
 		printUsage();
-        return 0;
-    }
     else if(argc == 2) // проверить команду на коректность
 	{
         var->flag = 'p';
@@ -111,8 +109,11 @@ int main(int argc, char *argv[])
         checkArguments(argc, argv, &container);
     getCommand(argv[1]);
     getMessages(&container);
+//    print(container);
+
     if (type == HASH_MD_5)
         calculateMd5(&container);
-    print(container);
+    else if (type == HASH_SHA256)
+        calculateSHA256(&container);
 	return 0;
 }
