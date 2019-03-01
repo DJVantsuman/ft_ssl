@@ -11,5 +11,6 @@ unsigned int	sigma0(unsigned int x);
 unsigned int	sigma1(unsigned int x);
 unsigned int	delta0(unsigned int x);
 unsigned int	delta1(unsigned int x);
+void            mainLoopSha256(unsigned int *X, t_variables *var);
 
 #endif

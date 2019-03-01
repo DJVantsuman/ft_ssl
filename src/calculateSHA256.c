@@ -1,5 +1,6 @@
 #include "../inc/ssl.h"
 #include "../inc/md5.h"
+#include "../inc/sha256.h"
 
 void            initializeT(t_variables     *var)
 {
@@ -54,7 +55,9 @@ void            calculateSHA256(t_container **container)
         {
             initializeH(&var);
             initializeT(&var);
-            print_output(&var, cnt);
+            X = step3_md5(step2_md5(step1_md5(cnt), cnt), &var);
+            mainLoopSha256(X, &var);
+            print_outputSha256(&var, cnt);
         }
         else if (cnt->flag != 's' && cnt->flag != 'p' && cnt->flag != 'r'
                  && cnt->flag != 'q' &&

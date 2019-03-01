@@ -49,6 +49,7 @@ char    *fileName;
 size_t  size;
 
 void            print_output(t_variables *var, t_container *container);
+void            print_outputSha256(t_variables *var, t_container *cnt);
 void            calculateMd5(t_container **container);
 void            calculateSHA256(t_container **container);
 void            checkArguments(int ac, char **av, t_container **container);
