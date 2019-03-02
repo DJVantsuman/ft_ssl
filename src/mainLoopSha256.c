@@ -68,6 +68,16 @@ void            loop(unsigned int m[], t_variables *tmp)
         tmp->h2 = tmp->h1;
         tmp->h1 = tmp->h0;
         tmp->h0 = (unsigned int)((tmp1 + tmp2) % 4294967296);
+
+        printf("t = %d   %.8x %.8x %.8x %.8x %.8x %.8x %.8x %.8x\n", i,
+                tmp->h0,
+                tmp->h1,
+                tmp->h2,
+                tmp->h3,
+                tmp->h4,
+                tmp->h5,
+                tmp->h6,
+                tmp->h7);
     }
 }
 

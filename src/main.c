@@ -81,7 +81,7 @@ void    print(t_container *container)
     t_container *var;
 
     var = container;
-//    printf("Command = %d\n", type);
+    printf("Command = %d\n", type);
     while (var) {
         if(var->message)
             printf("Flag = %c; Message = %s\n",  var->flag, var->message);

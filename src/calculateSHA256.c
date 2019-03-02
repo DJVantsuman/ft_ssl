@@ -2,6 +2,31 @@
 #include "../inc/md5.h"
 #include "../inc/sha256.h"
 
+unsigned char *step2_sha256(unsigned char *msg, t_container *var)
+{
+    size_t length_bit;
+
+    length_bit = var->message_len * 8;
+
+    for (size_t i = 0; i < 4; i ++)
+    {
+        msg[size - 4 + i] = (unsigned char)(length_bit >> i * 8);
+    }
+    return msg;
+}
+
+unsigned int    *step3_sha256(unsigned char *msg, t_variables *var)
+{
+    unsigned int *X;
+
+    X = (unsigned int *)malloc(size / 4);
+    for (int i = 0; i < 64; i++)
+        var->T[i] = (unsigned int)(pow(2, 32) * fabs(sin(i + 1)));
+    X = (unsigned int *)(msg);
+    X[(size / 4) - 1] = rev_bit(X[(size / 4) - 1]);
+    return X;
+}
+
 void            initializeT(t_variables     *var)
 {
     unsigned int	k[] = {
@@ -55,9 +80,24 @@ void            calculateSHA256(t_container **container)
         {
             initializeH(&var);
             initializeT(&var);
-            X = step3_md5(step2_md5(step1_md5(cnt), cnt), &var);
-            mainLoopSha256(X, &var);
-            print_outputSha256(&var, cnt);
+
+            X = step3_sha256(step2_sha256(step1_md5(cnt), cnt), &var);
+            // for(size_t i = 0; i < size / 4; i++)
+            // {
+            //     // printf("%X", (X[i]&0xFF000000) >> 24);
+            //     // printf("%X",  (X[i]&0xFF0000) >> 16);
+            //     // printf("%X",  (X[i]&0xFF00) >> 8);
+            //     // printf("%X\n", (X[i]&0xFF));
+            //     // printf("%d\n", X[i]);
+            //     printf("%X", ((unsigned char*)&X[i])[0]);
+            //     printf("%X", ((unsigned char*)&X[i])[1]);
+            //     printf("%X", ((unsigned char*)&X[i])[2]);
+            //     printf("%X\n", ((unsigned char*)&X[i])[3]);
+            // }
+            // printf("Size = %zu\n", size);
+            // printf("Number of blocks = %zu\n", size / 64);
+           mainLoopSha256(X, &var);
+           print_outputSha256(&var, cnt);
         }
         else if (cnt->flag != 's' && cnt->flag != 'p' && cnt->flag != 'r'
                  && cnt->flag != 'q' &&

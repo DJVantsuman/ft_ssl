@@ -38,6 +38,7 @@ t_container		*newLst(char *content)
 
 void    getCommand(char *command)
 {
+    printf("command = %s\n", command);
     if(!ft_strcmp(command, "md5"))
         type = HASH_MD_5;
     else if(!ft_strcmp(command, "sha256"))
@@ -80,6 +81,7 @@ void	checkArguments(int ac, char **av, t_container **container)
     i = 1;
     while (++i < ac)
     {
+//        printf("av[i][0] = %c\n", av[i][0]);
         if(av[i][0] == '-')
             i = getFlags(av, container, i, ac);
         else
