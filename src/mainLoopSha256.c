@@ -44,7 +44,7 @@ void    update_tmp(t_variables *tmp, t_variables *var)
     var->h6 = tmp->h6;
     var->h7 = tmp->h7;
 }
-
+ß
 void            loop(unsigned int m[], t_variables *tmp)
 {
     int					i;

@@ -34,7 +34,7 @@ void    print_outputSha256(t_variables *var, t_container *cnt)
         printf("(\"%s\") = %.8x%.8x%.8x%.8x\n", cnt->message,
                rev_bit(var->A), rev_bit(var->B), rev_bit(var->C), rev_bit(var->D));
 }
-
+ß
 unsigned int    rev_bit(unsigned int var)
 {
     unsigned int t;
