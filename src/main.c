@@ -85,23 +85,22 @@ int main(int argc, char *argv[])
     var = newLst(NULL);
 	if(argc == 1)
 		printUsage();
-    else if(argc == 2) // проверить команду на коректность
+    getCommand(argv[1]);
+    if(argc == 2) // проверить команду на коректность
 	{
         var->flag = 'p';
         addLst(&container, var);
 	}
     else if(argc > 2) // проверить команду на коректность
         checkArguments(argc, argv, &container);
-
     getMessages(&container);
-//    print(container);
-
     if (type == HASH_MD_5)
         calculateMd5(&container);
     else if(type == HASH_SHA256)
-    {
         calculateSHA256(&container);
+    else
+    {
+        printf("Error: wrong command");
     }
-
 	return 0;
 }

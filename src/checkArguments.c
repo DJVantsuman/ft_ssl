@@ -1,6 +1,5 @@
 #include "../inc/ssl.h"
 
-
 void	addLst(t_container **alst, t_container *newLst)
 {
     t_container	*list;
