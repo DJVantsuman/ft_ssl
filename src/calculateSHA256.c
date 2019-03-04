@@ -15,13 +15,11 @@ unsigned char *step2_sha256(unsigned char *msg, t_container *var)
     return msg;
 }
 
-unsigned int    *step3_sha256(unsigned char *msg, t_variables *var)
+unsigned int    *step3_sha256(unsigned char *msg)
 {
     unsigned int *X;
 
     X = (unsigned int *)malloc(size / 4);
-    for (int i = 0; i < 64; i++)
-        var->T[i] = (unsigned int)(pow(2, 32) * fabs(sin(i + 1)));
     X = (unsigned int *)(msg);
     X[(size / 4) - 1] = rev_bit(X[(size / 4) - 1]);
     return X;
@@ -81,7 +79,7 @@ void            calculateSHA256(t_container **container)
             initializeH(&var);
             initializeT(&var);
 
-            X = step3_sha256(step2_sha256(step1_md5(cnt), cnt), &var);
+            X = step3_sha256(step2_sha256(step1_md5(cnt), cnt));
             // for(size_t i = 0; i < size / 4; i++)
             // {
             //     // printf("%X", (X[i]&0xFF000000) >> 24);
@@ -97,6 +95,7 @@ void            calculateSHA256(t_container **container)
             // printf("Size = %zu\n", size);
             // printf("Number of blocks = %zu\n", size / 64);
            mainLoopSha256(X, &var);
+
            print_outputSha256(&var, cnt);
         }
         else if (cnt->flag != 's' && cnt->flag != 'p' && cnt->flag != 'r'

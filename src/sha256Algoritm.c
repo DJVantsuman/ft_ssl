@@ -1,6 +1,5 @@
 #include "../inc/sha256.h"
 
-
 unsigned int	rotate(unsigned int value, int shift)
 {
     return (value >> shift) | (value << (32 - shift));

@@ -76,21 +76,6 @@ int getMessages(t_container **container)
     return (1);
 }
 
-void    print(t_container *container)
-{
-    t_container *var;
-
-    var = container;
-    printf("Command = %d\n", type);
-    while (var) {
-        if(var->message)
-            printf("Flag = %c; Message = %s\n",  var->flag, var->message);
-        else
-            printf("Flag = %c; Message = %s\n",  var->flag, "NULL");
-        var = var->next;
-    }
-}
-
 int main(int argc, char *argv[])
 {
 	t_container *container;
@@ -107,13 +92,16 @@ int main(int argc, char *argv[])
 	}
     else if(argc > 2) // проверить команду на коректность
         checkArguments(argc, argv, &container);
-    getCommand(argv[1]);
+
     getMessages(&container);
 //    print(container);
 
     if (type == HASH_MD_5)
         calculateMd5(&container);
-    else if (type == HASH_SHA256)
+    else if(type == HASH_SHA256)
+    {
         calculateSHA256(&container);
+    }
+
 	return 0;
 }
