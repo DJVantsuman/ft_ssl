@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME =	md5
+NAME =	ft_ssl
 FLAGS = -Wall -Werror -Wextra
 SRC_PATH = ./src/
 SRC = src/main.c src/calculateMd5.c src/checkArguments.c src/step1_md5.c \

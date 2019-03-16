@@ -2,7 +2,8 @@
 
 void printUsage()
 {
-	printf("%s\n", "This is usage man.");
+	printf("%s\n", "usage: md5 [-pqr] [-s string] [files ...]");
+    printf("%s\n", "usage: sha256 [-pqr] [-s string] [files ...]");
     exit(0);
 }
 
@@ -16,7 +17,6 @@ int readFromFile(char *fileName, t_container **var)
 
 	str = "";
 	fd = open(fileName, O_RDONLY);
-    printf("%s\n",  "readFromFile");
     if (fd > 0)
     {
         while ((i = read(fd, &buffer, 100)) > 0)
@@ -24,7 +24,7 @@ int readFromFile(char *fileName, t_container **var)
             tmp = str;
             buffer[i] = '\0';
             str = ft_strjoin(tmp, buffer);
-            ft_strdel(&tmp);
+//            ft_strdel(&tmp);
         }
         (*var)->message = str;
     }
@@ -41,13 +41,12 @@ char *readFromConsole()
     int 	i;
 
     str = "";
-	printf("%s\n",  "reedFromConsole");
     while ((i = read(0, &buffer, 100)) > 0)
     {
         tmp = str;
         buffer[i] = '\0';
         str = ft_strjoin(tmp, buffer);
-        ft_strdel(&tmp);
+//        ft_strdel(&tmp);
     }
     return (str);
 }
@@ -55,20 +54,25 @@ char *readFromConsole()
 int getMessages(t_container **container)
 {
     t_container *var;
+    int         f;
 
     var = *container;
+    f = 0;
     while(var)
     {
-        if (var->flag == 'p')
+        if (var->flag == 'p' && f == 0)
+        {
+            f++;
             var->message = readFromConsole();
+            printf("%s", var->message);
+        }
         else if (var->flag == 'f')
         {
             if (readFromFile(var->fileName, &var) < 0)
-            {
-                printf("ERROR: Can't open file %s .\n",  var->fileName);
-                return (-1);
-            }
+                var->error = 1;
         }
+        else if (f > 0 && var->flag == 'p')
+            var->message = "";
         if (var->message)
             var->message_len = ft_strlen(var->message);
         var = var->next;
@@ -86,12 +90,12 @@ int main(int argc, char *argv[])
 	if(argc == 1)
 		printUsage();
     getCommand(argv[1]);
-    if(argc == 2) // проверить команду на коректность
+    if(argc == 2)
 	{
         var->flag = 'p';
         addLst(&container, var);
 	}
-    else if(argc > 2) // проверить команду на коректность
+    else if(argc > 2)
         checkArguments(argc, argv, &container);
     getMessages(&container);
     if (type == HASH_MD_5)
@@ -100,7 +104,7 @@ int main(int argc, char *argv[])
         calculateSHA256(&container);
     else
     {
-        printf("Error: wrong command");
+        printf("Error: wrong command\n");
     }
 	return 0;
 }

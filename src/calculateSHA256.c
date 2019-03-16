@@ -63,6 +63,12 @@ void            initializeH(t_variables     *var)
     var->h7 = 0x5BE0CD19;
 }
 
+void    illegalOpt(char flag)
+{
+    printf("sha256: illegal option -- %c\n", flag);
+    printUsage();
+}
+
 void            calculateSHA256(t_container **container)
 {
     t_container     *cnt;
@@ -73,35 +79,21 @@ void            calculateSHA256(t_container **container)
     checkFlags(container, 0, 0);
     while(cnt)
     {
-        if(cnt->flag == 'p' || cnt->flag == 's' ||
+        if (cnt->flag != 's' && cnt->flag != 'p' && cnt->flag != 'r'
+                 && cnt->flag != 'q' &&
+                 !(cnt->flag == 'f' && cnt->isValid == 1))
+            illegalOpt(cnt->flag);
+        else if(cnt->error == 1)
+            printf("md5: %s: No such file or directory\n", cnt->fileName);
+        else if(cnt->flag == 'p' || cnt->flag == 's' ||
                 (cnt->flag == 'f' && cnt->isValid ==1))
         {
             initializeH(&var);
             initializeT(&var);
-
             X = step3_sha256(step2_sha256(step1_md5(cnt), cnt));
-            // for(size_t i = 0; i < size / 4; i++)
-            // {
-            //     // printf("%X", (X[i]&0xFF000000) >> 24);
-            //     // printf("%X",  (X[i]&0xFF0000) >> 16);
-            //     // printf("%X",  (X[i]&0xFF00) >> 8);
-            //     // printf("%X\n", (X[i]&0xFF));
-            //     // printf("%d\n", X[i]);
-            //     printf("%X", ((unsigned char*)&X[i])[0]);
-            //     printf("%X", ((unsigned char*)&X[i])[1]);
-            //     printf("%X", ((unsigned char*)&X[i])[2]);
-            //     printf("%X\n", ((unsigned char*)&X[i])[3]);
-            // }
-            // printf("Size = %zu\n", size);
-            // printf("Number of blocks = %zu\n", size / 64);
-           mainLoopSha256(X, &var);
-
-           print_outputSha256(&var, cnt);
+            mainLoopSha256(X, &var);
+            print_outputSha256(&var, cnt);
         }
-        else if (cnt->flag != 's' && cnt->flag != 'p' && cnt->flag != 'r'
-                 && cnt->flag != 'q' &&
-                 !(cnt->flag == 'f' && cnt->isValid == 1))
-            printf("ERROR: Wrong flag \"%c\"\n", cnt->flag);
         cnt = cnt->next;
     }
 }

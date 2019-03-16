@@ -28,6 +28,12 @@ void    checkFlags(t_container **container, int isRevers, int isQuiet)
     }
 }
 
+void    illegalOption(char flag)
+{
+    printf("md5: illegal option -- %c\n", flag);
+    printUsage();
+}
+
 void    calculateMd5(t_container **container)
 {
     t_container     *cnt;
@@ -38,21 +44,19 @@ void    calculateMd5(t_container **container)
     checkFlags(container, 0, 0);
     while(cnt)
     {
-        if(cnt->flag == 'p' || cnt->flag == 's' ||
+        if (cnt->flag != 's' && cnt->flag != 'p' && cnt->flag != 'r'
+                 && cnt->flag != 'q' &&
+                 !(cnt->flag == 'f' && cnt->isValid == 1))
+            illegalOption(cnt->flag);
+        else if(cnt->error == 1)
+            printf("md5: %s: No such file or directory\n", cnt->fileName);
+        else if(cnt->flag == 'p' || cnt->flag == 's' ||
                 (cnt->flag == 'f' && cnt->isValid ==1))
         {
-            var.A = 0x67452301;
-            var.B = 0xefcdab89;
-            var.C = 0x98badcfe;
-            var.D = 0x10325476;
             X = step3_md5(step2_md5(step1_md5(cnt), cnt), &var);
             step4_md5(X, &var);
             print_output(&var, cnt);
         }
-        else if (cnt->flag != 's' && cnt->flag != 'p' && cnt->flag != 'r'
-                 && cnt->flag != 'q' &&
-                 !(cnt->flag == 'f' && cnt->isValid == 1))
-            printf("ERROR: Wrong flag \"%c\"\n", cnt->flag);
         cnt = cnt->next;
     }
 }

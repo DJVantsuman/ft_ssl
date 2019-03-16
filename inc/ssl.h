@@ -16,6 +16,7 @@ typedef  struct s_container
     int                 isValid;
     int                 isRevers;
     int                 isQuiet;
+    int                 error;
 
     struct s_container  *next;
 }                       t_container;
@@ -45,9 +46,9 @@ typedef enum    e_type
 }               t_type;
 
 t_type  type;
-char    *fileName;
 size_t  size;
 
+void            printUsage();
 void            print_output(t_variables *var, t_container *container);
 void            print_outputSha256(t_variables *var, t_container *cnt);
 void            calculateMd5(t_container **container);

@@ -99,10 +99,10 @@ void    step4_md5(unsigned int *X, t_variables *var)
     unsigned int CC;
     unsigned int DD;
 
-   for(size_t i = 0; i < size / 4; i++)
-       printf("X[%d] = %d\n", i,  X[i]);
-   printf("Size = %d\n", size);
-   printf("Number of blocks = %d\n", size / 64);
+//   for(size_t i = 0; i < size / 4; i++)
+//       printf("X[%zu] = %d\n", i,  X[i]);
+//   printf("Size = %zu\n", size);
+//   printf("Number of blocks = %zu\n", size / 64);
 
     for(size_t i = 0, j = 0; i < size / 64; i++, j += 16)
     {

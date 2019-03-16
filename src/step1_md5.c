@@ -16,7 +16,6 @@ size_t  getSize(t_container *container)
 
 void    fillMsg(unsigned char *msg, t_container *var)
 {
-   // printf("message_len = %d\n", (int)var->message_len);
     for(size_t i = 0; i < var->message_len; i++)
         msg[i] = (unsigned char)var->message[i];
     msg[var->message_len] = 0x80;
@@ -29,22 +28,12 @@ unsigned char    *step1_md5(t_container *var)
     unsigned char   *msg;
 
     size = getSize(var);
-//    printf("Mesage = %s\n", var->message);
-//    printf("Size = %d\n", (int)size);
     msg = (unsigned char *)malloc(size +1);
     if(!msg)
     {
-        printf("Error in step1");
+        printf("Error in step #1");
         exit(1);
     }
     fillMsg(msg, var);
-
-
-
-    // for(size_t i = 0; i < size / 4; i++)
-    // {
-    //     printf("%X ", msg[i]  );
-    // }                    
-
     return msg;
 }
