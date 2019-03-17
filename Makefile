@@ -23,7 +23,8 @@ all: $(NAME)
 
 $(NAME): $(OSRC)
 	@make -C libft
-	@gcc -o $(NAME) $(FLAGS) $(OSRC) libft/libft.a
+	@make -C ft_printf
+	@gcc -o $(NAME) $(FLAGS) $(OSRC) libft/libft.a ft_printf/libftprintf.a
 	@make clean
 
 %.o: %.c
@@ -31,10 +32,12 @@ $(NAME): $(OSRC)
 
 clean:
 	@make clean -C libft
+	@make clean -C ft_printf
 	@rm -f $(OSRC)
 
 fclean: clean
 	@make fclean -C libft
+	@make fclean -C ft_printf
 	@rm -f $(NAME)
 
 re: fclean all

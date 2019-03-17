@@ -30,7 +30,7 @@ void    checkFlags(t_container **container, int isRevers, int isQuiet)
 
 void    illegalOption(char flag)
 {
-    printf("md5: illegal option -- %c\n", flag);
+    ft_printf("md5: illegal option -- %c\n", flag);
     printUsage();
 }
 
@@ -49,7 +49,7 @@ void    calculateMd5(t_container **container)
                  !(cnt->flag == 'f' && cnt->isValid == 1))
             illegalOption(cnt->flag);
         else if(cnt->error == 1)
-            printf("md5: %s: No such file or directory\n", cnt->fileName);
+            ft_printf("md5: %s: No such file or directory\n", cnt->fileName);
         else if(cnt->flag == 'p' || cnt->flag == 's' ||
                 (cnt->flag == 'f' && cnt->isValid ==1))
         {

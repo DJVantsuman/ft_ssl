@@ -2,8 +2,8 @@
 
 void printUsage()
 {
-	printf("%s\n", "usage: md5 [-pqr] [-s string] [files ...]");
-    printf("%s\n", "usage: sha256 [-pqr] [-s string] [files ...]");
+	ft_printf("%s\n", "usage: md5 [-pqr] [-s string] [files ...]");
+    ft_printf("%s\n", "usage: sha256 [-pqr] [-s string] [files ...]");
     exit(0);
 }
 
@@ -15,7 +15,7 @@ int readFromFile(char *fileName, t_container **var)
     int 	i;
 	int 	fd;
 
-	str = "";
+	str = NULL;
 	fd = open(fileName, O_RDONLY);
     if (fd > 0)
     {
@@ -23,8 +23,11 @@ int readFromFile(char *fileName, t_container **var)
         {
             tmp = str;
             buffer[i] = '\0';
-            str = ft_strjoin(tmp, buffer);
-//            ft_strdel(&tmp);
+            if(tmp == NULL)
+                str = ft_strdup(buffer);
+            else
+                str = ft_strjoin(tmp, buffer);
+            ft_strdel(&tmp);
         }
         (*var)->message = str;
     }
@@ -40,13 +43,16 @@ char *readFromConsole()
     char 	*tmp;
     int 	i;
 
-    str = "";
+    str = NULL;
     while ((i = read(0, &buffer, 100)) > 0)
     {
         tmp = str;
         buffer[i] = '\0';
-        str = ft_strjoin(tmp, buffer);
-//        ft_strdel(&tmp);
+        if(tmp == NULL)
+            str = ft_strdup(buffer);
+        else
+            str = ft_strjoin(tmp, buffer);
+        ft_strdel(&tmp);
     }
     return (str);
 }
@@ -102,9 +108,6 @@ int main(int argc, char *argv[])
         calculateMd5(&container);
     else if(type == HASH_SHA256)
         calculateSHA256(&container);
-    else
-    {
-        printf("Error: wrong command\n");
-    }
+    system("leaks -q ft_ssl");
 	return 0;
 }

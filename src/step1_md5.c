@@ -31,7 +31,7 @@ unsigned char    *step1_md5(t_container *var)
     msg = (unsigned char *)malloc(size +1);
     if(!msg)
     {
-        printf("Error in step #1");
+        ft_printf("Error in step #1");
         exit(1);
     }
     fillMsg(msg, var);

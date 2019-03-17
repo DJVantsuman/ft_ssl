@@ -43,6 +43,11 @@ void    getCommand(char *command)
         type = HASH_SHA256;
     else
         type = UNDEFINED;
+    if(type == UNDEFINED)
+    {
+        ft_printf("Error: wrong command\n");
+        exit(1);
+    }
 }
 
 int    getFlags(char **av, t_container **container, int i, int ac)

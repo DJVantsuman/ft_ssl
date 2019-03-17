@@ -6,6 +6,7 @@
 # include <fcntl.h>
 # include <math.h>
 # include "../libft/libft.h"
+# include "../ft_printf/ft_printf.h"
 
 typedef  struct s_container
 {

@@ -1,5 +1,4 @@
 #include "../inc/sha256.h"
-#define ULL unsigned long long
 
 void	prepareMessage(unsigned int *X, unsigned int m[])
 {

@@ -19,8 +19,8 @@ unsigned int    *step3_sha256(unsigned char *msg)
 {
     unsigned int *X;
 
-    X = (unsigned int *)malloc(size / 4);
     X = (unsigned int *)(msg);
+    free(msg);
     X[(size / 4) - 1] = rev_bit(X[(size / 4) - 1]);
     return X;
 }
@@ -65,7 +65,7 @@ void            initializeH(t_variables     *var)
 
 void    illegalOpt(char flag)
 {
-    printf("sha256: illegal option -- %c\n", flag);
+    ft_printf("sha256: illegal option -- %c\n", flag);
     printUsage();
 }
 
@@ -84,7 +84,7 @@ void            calculateSHA256(t_container **container)
                  !(cnt->flag == 'f' && cnt->isValid == 1))
             illegalOpt(cnt->flag);
         else if(cnt->error == 1)
-            printf("md5: %s: No such file or directory\n", cnt->fileName);
+            ft_printf("md5: %s: No such file or directory\n", cnt->fileName);
         else if(cnt->flag == 'p' || cnt->flag == 's' ||
                 (cnt->flag == 'f' && cnt->isValid ==1))
         {
