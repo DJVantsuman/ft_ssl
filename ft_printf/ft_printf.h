@@ -36,7 +36,7 @@ void			check_type(const char *format, t_strf *f);
 void			check_mod_size(const char *format, t_strf *f);
 void			check_width(const char *format, t_strf *f);
 void			check_flag(const char *format, t_strf *f);
-void			check_pricision(const char *format, t_strf *f);
+void			check_pricision(const char *format, t_strf *f, int i);
 void			print_str(t_strf *f, va_list ap, const char *format);
 
 char			*flag_plus(char *s, t_strf *f);

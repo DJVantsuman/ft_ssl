@@ -43,9 +43,8 @@ void	check_pr(const char *format, t_strf *f)
 		}
 }
 
-void	check_pricision(const char *format, t_strf *f)
+void	check_pricision(const char *format, t_strf *f, int i)
 {
-	int		i;
 	char	*s;
 	char    *tmp;
 	char	a[2];

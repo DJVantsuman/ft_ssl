@@ -34,7 +34,6 @@ char	*non_type(const char *format)
 char	*get_vaule(t_strf *f, va_list ap, const char *format)
 {
 	char	*s;
-	char 	*var;
 
 	s = fill_type(f, ap);
 	if (s == NULL)
@@ -44,8 +43,7 @@ char	*get_vaule(t_strf *f, va_list ap, const char *format)
 			return (0);
 		f->type = 'c';
 	}
-	var = s;
-	s = fill_precision(var, f);
+	s = fill_precision(s, f);
 	s = fill_width(s, f);
 	return (s);
 }

@@ -14,10 +14,13 @@
 
 char	*fill_s(char *s)
 {
-	if (s == NULL)
+	char *var;
+
+	var = ft_strdup(s);
+	if (var == NULL)
 	{
 		ft_putstr("(null)");
 		g_ivan = -1;
 	}
-	return (s);
+	return (var);
 }

@@ -16,7 +16,7 @@ SRC_PATH = ./src/
 SRC = src/main.c src/calculateMd5.c src/checkArguments.c src/step1_md5.c \
 src/step2_md5.c src/step3_md5.c src/step4_md5.c src/md5Algoritm.c        \
 src/print_output.c src/calculateSHA256.c src/sha256Algoritm.c            \
-src/sha256Algoritm_1.c src/mainLoopSha256.c
+src/sha256Algoritm_1.c src/mainLoopSha256.c src/step4_md5_1.c
 OSRC =	$(SRC:.c=.o)
 
 all: $(NAME)
