@@ -14,8 +14,8 @@
 
 char	*type_c_width(char *s, t_strf *f)
 {
-	char c;
+    char c;
 
-	c = f->type;
-	return (s);
+    c = f->type;
+    return (s);
 }

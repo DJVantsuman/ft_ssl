@@ -12,7 +12,7 @@
 
 
 NAME =	libftprintf.a
-FLAGS = -Wall -Werror -Wextra -g
+FLAGS = -g #-Wall -Werror -Wextra
 SRC =	type_c_width.c flag_plus.c check_flag.c check_mod_size.c    \
 check_pricision.c check_type.c check_width.c fill_c.c fill_d.c fill_o.c        \
 fill_precision.c fill_s.c fill_type.c fill_u.c fill_width.c formater_arg.c     \
