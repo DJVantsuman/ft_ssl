@@ -6,7 +6,7 @@
 /*   By: itsuman <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/10 17:44:07 by itsuman           #+#    #+#             */
-/*   Updated: 2017/03/14 19:26:50 by itsuman          ###   ########.fr       */
+/*   Updated: 2019/03/19 22:38:55 by itsuman          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 char	*type_c_width(char *s, t_strf *f)
 {
-    char c;
+	char c;
 
-    c = f->type;
-    return (s);
+	c = f->type;
+	return (s);
 }

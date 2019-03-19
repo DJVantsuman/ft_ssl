@@ -13,60 +13,63 @@
 #include "../inc/ssl.h"
 #include "../inc/md5.h"
 
-void	checkFlags(t_container **container, int isRevers, int isQuiet)
+void	check_flags(t_container **container, int is_revers, int is_quiet)
 {
 	t_container *var;
 
 	var = *container;
-	while(var)
+	while (var)
 	{
-		if(var->flag == 'r')
-			isRevers = 1;
+		if (var->flag == 'r')
+			is_revers = 1;
 		else if (var->flag == 'q')
-			isQuiet = 1;
+			is_quiet = 1;
 		if ((var->flag == 's' || var->flag == 'p' || var->flag == 'f')
-				&& isRevers == 1)
+				&& is_revers == 1)
 		{
-			var->isRevers = 1;
-			isRevers = 0;
+			var->is_revers = 1;
+			is_revers = 0;
 		}
 		if ((var->flag == 's' || var->flag == 'p' || var->flag == 'f')
-				&& isQuiet == 1)
+				&& is_quiet == 1)
 		{
-			var->isQuiet = 1;
-			isQuiet = 0;
+			var->is_quiet = 1;
+			is_quiet = 0;
 		}
 		var = var->next;
 	}
 }
 
-void    illegalOption(char flag)
+void	illegal_option(char flag)
 {
-	ft_printf("md5: illegal option -- %c\n", flag);
-	printUsage();
+	if (g_type == HASH_MD_5)
+		ft_printf("md5: illegal option -- %c\n", flag);
+	else if (g_type == HASH_SHA256)
+		ft_printf("sha256: illegal option -- %c\n", flag);
+	print_usage();
 }
 
-void    calculateMd5(t_container **container)
+void	calculate_md5(t_container **container)
 {
-	t_container     *cnt;
-	t_variables     var;
-	unsigned int    *X;
+	t_container		*cnt;
+	t_variables		var;
+	unsigned int	*x;
 
 	cnt = *container;
-	checkFlags(container, 0, 0);
-	while(cnt)
+	check_flags(container, 0, 0);
+	while (cnt)
 	{
 		if (cnt->flag != 's' && cnt->flag != 'p' && cnt->flag != 'r'
 				&& cnt->flag != 'q' &&
-				!(cnt->flag == 'f' && cnt->isValid == 1))
-			illegalOption(cnt->flag);
-		else if(cnt->error == 1)
-			ft_printf("md5: %s: No such file or directory\n", cnt->fileName);
-		else if(cnt->flag == 'p' || cnt->flag == 's' ||
-				(cnt->flag == 'f' && cnt->isValid ==1))
+				!(cnt->flag == 'f' && cnt->is_valid == 1))
+			illegal_option(cnt->flag);
+		else if (cnt->error == 1)
+			ft_printf("md5: %s: No such file or directory\n", cnt->file_name);
+		else if (cnt->flag == 'p' || cnt->flag == 's' ||
+				(cnt->flag == 'f' && cnt->is_valid == 1))
 		{
-			X = step3_md5(step2_md5(step1_md5(cnt), cnt), &var);
-			step4_md5(X, &var);
+			x = step3_md5(step2_md5(step1_md5(cnt), cnt), &var);
+			step4_md5(x, &var, 0, 0);
 			print_output(&var, cnt);
 		}
 		cnt = cnt->next;

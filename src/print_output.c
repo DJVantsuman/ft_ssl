@@ -12,41 +12,46 @@
 
 #include "../inc/md5.h"
 
-void    print_output(t_variables *var, t_container *cnt)
+void			print_output(t_variables *var, t_container *cnt)
 {
-	if (cnt->isQuiet == 1 || cnt->flag == 'p')
+	if (cnt->is_quiet == 1 || cnt->flag == 'p')
 		ft_printf("%.8x%.8x%.8x%.8x\n",
-				rev_bit(var->A), rev_bit(var->B), rev_bit(var->C), rev_bit(var->D));
-	else if (cnt->flag == 'f' && cnt->isRevers == 0)
-		ft_printf("MD5 (%s) = %.8x%.8x%.8x%.8x\n", cnt->fileName,
-				rev_bit(var->A), rev_bit(var->B), rev_bit(var->C), rev_bit(var->D));
-	else if (cnt->isRevers == 1 && cnt->flag == 'f')
-		ft_printf("%.8x%.8x%.8x%.8x %s\n", rev_bit(var->A),
-				rev_bit(var->B), rev_bit(var->C), rev_bit(var->D), cnt->fileName);
-	else if (cnt->isRevers == 1)
-		ft_printf("%.8x%.8x%.8x%.8x \"%s\"\n", rev_bit(var->A),
-				rev_bit(var->B), rev_bit(var->C), rev_bit(var->D), cnt->message);
+				rev_bit(var->a), rev_bit(var->b), rev_bit(var->c),
+				rev_bit(var->d));
+	else if (cnt->flag == 'f' && cnt->is_revers == 0)
+		ft_printf("MD5 (%s) = %.8x%.8x%.8x%.8x\n", cnt->file_name,
+				rev_bit(var->a), rev_bit(var->b), rev_bit(var->c),
+				rev_bit(var->d));
+	else if (cnt->is_revers == 1 && cnt->flag == 'f')
+		ft_printf("%.8x%.8x%.8x%.8x %s\n", rev_bit(var->a),
+				rev_bit(var->b), rev_bit(var->c), rev_bit(var->d),
+				cnt->file_name);
+	else if (cnt->is_revers == 1)
+		ft_printf("%.8x%.8x%.8x%.8x \"%s\"\n", rev_bit(var->a),
+				rev_bit(var->b), rev_bit(var->c), rev_bit(var->d),
+				cnt->message);
 	else
 		ft_printf("MD5 (\"%s\") = %.8x%.8x%.8x%.8x\n", cnt->message,
-				rev_bit(var->A), rev_bit(var->B), rev_bit(var->C), rev_bit(var->D));
+				rev_bit(var->a), rev_bit(var->b), rev_bit(var->c),
+				rev_bit(var->d));
 }
 
-void    print_outputSha256(t_variables *var, t_container *cnt)
+void			print_output_sha256(t_variables *var, t_container *cnt)
 {
-	if (cnt->isQuiet == 1 || cnt->flag == 'p')
+	if (cnt->is_quiet == 1 || cnt->flag == 'p')
 		ft_printf("%.8x%.8x%.8x%.8x%.8x%.8x%.8x%.8x\n",
 				var->h0, var->h1, var->h2, var->h3,
 				var->h4, var->h5, var->h6, var->h7);
-	else if (cnt->flag == 'f' && cnt->isRevers == 0)
+	else if (cnt->flag == 'f' && cnt->is_revers == 0)
 		ft_printf("SHA256 (%s) = %.8x%.8x%.8x%.8x%.8x%.8x%.8x%.8x\n",
-				cnt->fileName, var->h0, var->h1, var->h2, var->h3,
+				cnt->file_name, var->h0, var->h1, var->h2, var->h3,
 				var->h4, var->h5, var->h6, var->h7);
-	else if (cnt->isRevers == 1 && cnt->flag == 'f')
+	else if (cnt->is_revers == 1 && cnt->flag == 'f')
 		ft_printf("%.8x%.8x%.8x%.8x%.8x%.8x%.8x%.8x  %s\n",
 				var->h0, var->h1, var->h2, var->h3,
 				var->h4, var->h5, var->h6, var->h7,
-				cnt->fileName);
-	else if (cnt->isRevers == 1)
+				cnt->file_name);
+	else if (cnt->is_revers == 1)
 		ft_printf("%.8x%.8x%.8x%.8x%.8x%.8x%.8x%.8x  \"%s\"\n",
 				var->h0, var->h1, var->h2, var->h3,
 				var->h4, var->h5, var->h6, var->h7,
@@ -57,7 +62,7 @@ void    print_outputSha256(t_variables *var, t_container *cnt)
 				var->h4, var->h5, var->h6, var->h7);
 }
 
-unsigned int    rev_bit(unsigned int var)
+unsigned int	rev_bit(unsigned int var)
 {
 	unsigned int t;
 
@@ -65,5 +70,5 @@ unsigned int    rev_bit(unsigned int var)
 	t += (var & 65280) << 8;
 	t += (var & 16711680) >> 8;
 	t += var >> 24;
-	return t;
+	return (t);
 }

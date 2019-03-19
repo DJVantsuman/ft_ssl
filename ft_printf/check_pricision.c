@@ -19,12 +19,12 @@ void	get_num(t_strf *f, char *s)
 
 	i = 0;
 	n = 0;
-	if(s != NULL)
-        while (s[i] != '\0')
-        {
-            n = n * 10 + s[i] - '0';
-            i++;
-        }
+	if (s != NULL)
+		while (s[i] != '\0')
+		{
+			n = n * 10 + s[i] - '0';
+			i++;
+		}
 	f->precision = n;
 }
 
@@ -46,10 +46,9 @@ void	check_pr(const char *format, t_strf *f)
 void	check_pricision(const char *format, t_strf *f, int i)
 {
 	char	*s;
-	char    *tmp;
+	char	*tmp;
 	char	a[2];
 
-	i = 0;
 	s = NULL;
 	a[1] = '\0';
 	while (is_spesify(format[i]))
@@ -59,7 +58,7 @@ void	check_pricision(const char *format, t_strf *f, int i)
 			f->precision = 0;
 			while ((format[i] >= 49 && format[i] <= 58) || format[i] == '0')
 			{
-			    tmp = s;
+				tmp = s;
 				a[0] = format[i];
 				s = ft_strjoin(tmp, a);
 				ft_strdel(&tmp);

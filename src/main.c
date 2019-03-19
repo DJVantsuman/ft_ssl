@@ -12,16 +12,16 @@
 
 #include "../inc/ssl.h"
 
-void	printUsage(void)
+void	print_usage(void)
 {
-	if (type == HASH_MD_5)
+	if (g_type == HASH_MD_5)
 		ft_printf("%s\n", "usage: md5 [-pqr] [-s string] [files ...]");
-	else if (type == HASH_SHA256)
+	else if (g_type == HASH_SHA256)
 		ft_printf("%s\n", "usage: sha256 [-pqr] [-s string] [files ...]");
 	exit(0);
 }
 
-int		readFromFile(char *fileName, t_container **var)
+int		read_from_file(char *file_name, t_container **var)
 {
 	char	*str;
 	char	*tmp;
@@ -30,7 +30,7 @@ int		readFromFile(char *fileName, t_container **var)
 	int		fd;
 
 	str = NULL;
-	fd = open(fileName, O_RDONLY);
+	fd = open(file_name, O_RDONLY);
 	if (fd > 0)
 	{
 		while ((i = read(fd, &buffer, 100)) > 0)
@@ -50,7 +50,7 @@ int		readFromFile(char *fileName, t_container **var)
 	return (1);
 }
 
-char	*readFromConsole(void)
+char	*read_from_console(void)
 {
 	char	buffer[101];
 	char	*str;
@@ -71,7 +71,7 @@ char	*readFromConsole(void)
 	return (str);
 }
 
-int		getMessages(t_container **container)
+int		get_messages(t_container **container)
 {
 	t_container *var;
 	int			f;
@@ -83,12 +83,12 @@ int		getMessages(t_container **container)
 		if (var->flag == 'p' && f == 0)
 		{
 			f++;
-			var->message = readFromConsole();
+			var->message = read_from_console();
 			ft_printf("%s", var->message);
 		}
 		else if (var->flag == 'f')
 		{
-			if (readFromFile(var->fileName, &var) < 0)
+			if (read_from_file(var->file_name, &var) < 0)
 				var->error = 1;
 		}
 		else if (f > 0 && var->flag == 'p')
@@ -106,22 +106,22 @@ int		main(int argc, char *argv[])
 	t_container *var;
 
 	container = NULL;
-	var = newLst(NULL);
+	var = new_lst(NULL);
 	if (argc == 1)
-		printUsage();
-	getCommand(argv[1]);
+		print_usage();
+	get_command(argv[1]);
 	if (argc == 2)
 	{
 		var->flag = 'p';
-		addLst(&container, var);
+		add_lst(&container, var);
 	}
 	else if (argc > 2)
-		checkArguments(argc, argv, &container);
-	getMessages(&container);
-	if (type == HASH_MD_5)
-		calculateMd5(&container);
-	else if (type == HASH_SHA256)
-		calculateSHA256(&container);
+		check_arguments(argc, argv, &container);
+	get_messages(&container);
+	if (g_type == HASH_MD_5)
+		calculate_md5(&container);
+	else if (g_type == HASH_SHA256)
+		calculate_sha256(&container);
 	system("leaks -q ft_ssl");
 	return (0);
 }

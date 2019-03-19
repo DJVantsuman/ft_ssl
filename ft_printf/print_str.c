@@ -18,6 +18,6 @@ void	print_str(t_strf *f, va_list ap, const char *format)
 
 	s = get_vaule(f, ap, format);
 	ft_putstr(s);
-	if(s)
-	    ft_strdel(&s);
+	if (s)
+		ft_strdel(&s);
 }

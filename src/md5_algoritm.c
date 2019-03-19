@@ -12,27 +12,27 @@
 
 #include "../inc/md5.h"
 
-unsigned int    F(unsigned int X, unsigned int Y, unsigned int Z)
+unsigned int	f(unsigned int x, unsigned int y, unsigned int z)
 {
-	return ((X & Y) | ((~X) & Z));
+	return ((x & y) | ((~x) & z));
 }
 
-unsigned int    G(unsigned int X, unsigned int Y, unsigned int Z)
+unsigned int	g(unsigned int x, unsigned int y, unsigned int z)
 {
-	return (X & Z) | (Y & (~Z));
+	return ((x & z) | (y & (~z)));
 }
 
-unsigned int    H(unsigned int X, unsigned int Y, unsigned int Z)
+unsigned int	h(unsigned int x, unsigned int y, unsigned int z)
 {
-	return X ^ Y ^ Z;
+	return (x ^ y ^ z);
 }
 
-unsigned int    I(unsigned int X, unsigned int Y, unsigned int Z)
+unsigned int	i(unsigned int x, unsigned int y, unsigned int z)
 {
-	return Y ^ (X | (~Z));
+	return (y ^ (x | (~z)));
 }
 
-unsigned int    rotate_left(unsigned int value, int shift)
+unsigned int	rotate_left(unsigned int value, int shift)
 {
-	return value << shift | value >> (32-shift);
+	return (value << shift | value >> (32 - shift));
 }

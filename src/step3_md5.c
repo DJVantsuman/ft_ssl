@@ -12,17 +12,22 @@
 
 #include "../inc/md5.h"
 
-unsigned int    *step3_md5(unsigned char *msg, t_variables *var)
+unsigned int	*step3_md5(unsigned char *msg, t_variables *var)
 {
-	unsigned int *X;
+	unsigned int	*x;
+	int				i;
 
-	var->A = 0x67452301;
-	var->B = 0xefcdab89;
-	var->C = 0x98badcfe;
-	var->D = 0x10325476;
-	for (int i = 0; i < 64; i++)
-		var->T[i] = (unsigned int)(pow(2, 32) * fabs(sin(i + 1)));
-	X = (unsigned int *)(msg);
+	i = 0;
+	var->a = 0x67452301;
+	var->b = 0xefcdab89;
+	var->c = 0x98badcfe;
+	var->d = 0x10325476;
+	while (i < 64)
+	{
+		var->t[i] = (unsigned int)(pow(2, 32) * fabs(sin(i + 1)));
+		i++;
+	}
+	x = (unsigned int *)(msg);
 	free(msg);
-	return X;
+	return (x);
 }

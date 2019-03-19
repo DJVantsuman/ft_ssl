@@ -12,22 +12,22 @@
 
 #include "../inc/ssl.h"
 
-void	addLst(t_container **alst, t_container *newLst)
+void		add_lst(t_container **alst, t_container *new_lst)
 {
 	t_container	*list;
 
 	if (*alst == NULL)
-		*alst = newLst;
+		*alst = new_lst;
 	else
 	{
 		list = *alst;
 		while (list->next)
 			list = list->next;
-		list->next = newLst;
+		list->next = new_lst;
 	}
 }
 
-t_container		*newLst(char *content)
+t_container	*new_lst(char *content)
 {
 	t_container	*list;
 
@@ -38,37 +38,37 @@ t_container		*newLst(char *content)
 		list->message = content;
 	else
 		list->message = NULL;
-	list->fileName = 0;
+	list->file_name = 0;
 	list->message_len = 0;
-	list->isValid = 0;
-	list->isQuiet = 0;
-	list->isRevers = 0;
+	list->is_valid = 0;
+	list->is_quiet = 0;
+	list->is_revers = 0;
 	list->next = NULL;
 	return (list);
 }
 
-void    getCommand(char *command)
+void		get_command(char *command)
 {
-	if(!ft_strcmp(command, "md5"))
-		type = HASH_MD_5;
-	else if(!ft_strcmp(command, "sha256"))
-		type = HASH_SHA256;
+	if (!ft_strcmp(command, "md5"))
+		g_type = HASH_MD_5;
+	else if (!ft_strcmp(command, "sha256"))
+		g_type = HASH_SHA256;
 	else
-		type = UNDEFINED;
-	if(type == UNDEFINED)
+		g_type = UNDEFINED;
+	if (g_type == UNDEFINED)
 	{
 		ft_printf("Error: wrong command\n");
 		exit(1);
 	}
 }
 
-int    getFlags(char **av, t_container **container, int i, int ac)
+int			get_flags(char **av, t_container **container, int i, int ac)
 {
-	t_container *var;
+	t_container	*var;
 
 	while (*(++av[i]))
 	{
-		var = newLst(NULL);
+		var = new_lst(NULL);
 		var->flag = *av[i];
 		if (*av[i] == 's')
 		{
@@ -77,37 +77,37 @@ int    getFlags(char **av, t_container **container, int i, int ac)
 			else if (i + 1 < ac)
 				var->message = ft_strdup(av[++i]);
 			else
-				var->isValid = 0;
+				var->is_valid = 0;
 			if (var->message)
 				var->message_len = ft_strlen(var->message);
-			addLst(container, var);
+			add_lst(container, var);
 			break ;
 		}
-		addLst(container, var);
+		add_lst(container, var);
 	}
-	return i;
+	return (i);
 }
 
-void	checkArguments(int ac, char **av, t_container **container)
+void		check_arguments(int ac, char **av, t_container **container)
 {
-	t_container *var;
-	int         i;
-	int         f;
+	t_container	*var;
+	int			i;
+	int			f;
 
 	i = 1;
 	f = 0;
 	while (++i < ac)
 	{
-		if(av[i][0] == '-' && f == 0)
-			i = getFlags(av, container, i, ac);
+		if (av[i][0] == '-' && f == 0)
+			i = get_flags(av, container, i, ac);
 		else
 		{
 			f++;
-			var = newLst(NULL);
+			var = new_lst(NULL);
 			var->flag = 'f';
-			var->fileName = ft_strdup(av[i]);
-			var->isValid = 1;
-			addLst(container, var);
+			var->file_name = ft_strdup(av[i]);
+			var->is_valid = 1;
+			add_lst(container, var);
 		}
 	}
 }

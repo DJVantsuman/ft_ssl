@@ -12,40 +12,49 @@
 
 #include "../inc/md5.h"
 
-size_t  getSize(t_container *container)
+size_t			get_size(t_container *container)
 {
+	size_t	rest;
 
-	size_t rest;
-
-	size = 0;
+	g_size = 0;
 	rest = container->message_len % 64;
-	if(rest < 56)
-		size = container->message_len - rest + 56 + 8;
+	if (rest < 56)
+		g_size = container->message_len - rest + 56 + 8;
 	else
-		size = container->message_len + 64 - rest + 56 + 8;
-	return size;
+		g_size = container->message_len + 64 - rest + 56 + 8;
+	return (g_size);
 }
 
-void    fillMsg(unsigned char *msg, t_container *var)
+void			fill_msg(unsigned char *msg, t_container *var)
 {
-	for(size_t i = 0; i < var->message_len; i++)
+	size_t	i;
+
+	i = 0;
+	while (i < var->message_len)
+	{
 		msg[i] = (unsigned char)var->message[i];
+		i++;
+	}
 	msg[var->message_len] = 0x80;
-	for(size_t i = var->message_len + 1; i < size; i++)
+	i = var->message_len + 1;
+	while (i < g_size)
+	{
 		msg[i] = 0;
+		i++;
+	}
 }
 
-unsigned char    *step1_md5(t_container *var)
+unsigned char	*step1_md5(t_container *var)
 {
-	unsigned char   *msg;
+	unsigned char	*msg;
 
-	size = getSize(var);
-	msg = (unsigned char *)malloc(size +1);
-	if(!msg)
+	g_size = get_size(var);
+	msg = (unsigned char *)malloc(g_size + 1);
+	if (!msg)
 	{
 		ft_printf("Error in step #1");
 		exit(1);
 	}
-	fillMsg(msg, var);
-	return msg;
+	fill_msg(msg, var);
+	return (msg);
 }

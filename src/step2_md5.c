@@ -12,16 +12,17 @@
 
 #include "../inc/md5.h"
 
-unsigned char *step2_md5(unsigned char *msg, t_container *var)
+unsigned char	*step2_md5(unsigned char *msg, t_container *var)
 {
-	size_t length_bit;
-
+	size_t	length_bit;
+	size_t	i;
 
 	length_bit = var->message_len * 8;
-
-	for (size_t i = 0; i < 4; i ++)
+	i = 0;
+	while (i < 4)
 	{
-		msg[size - 8 + i] = (unsigned char)(length_bit >> i * 8);
+		msg[g_size - 8 + i] = (unsigned char)(length_bit >> i * 8);
+		i++;
 	}
-	return msg;
+	return (msg);
 }
